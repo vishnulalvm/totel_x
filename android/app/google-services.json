@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "16690528086",
+    "project_id": "totelx",
+    "storage_bucket": "totelx.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16690528086:android:6ffce9a54f753580da20f7",
+        "android_client_info": {
+          "package_name": "com.example.totel_x"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL3n_7bs9YXo_z7nvcP_SBPv_nWuB18CE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

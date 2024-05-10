@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:totel_x/presentation/screens/widgets/utils/text/modified_text.dart';
 
@@ -24,18 +23,19 @@ class _VerificationScreenState extends State<VerificationScreen> {
             children: [
               Center(
                 child: SizedBox(
-                  height: 130,
-                  width: 150,
+                  height: 200,
+                  width: 200,
                   child: Image.asset('assets/images/Group.jpg'),
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 30),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: const ModifiedText(
                   text: 'OTP Verification',
                   size: 14,
                   color: Color.fromRGBO(51, 51, 51, 1),
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 20),
@@ -46,43 +46,35 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   color: Colors.grey),
               const SizedBox(height: 20),
               PinCodeFields(
-                onComplete: (value) {},
-                length: 5,
-                fieldBorderStyle: FieldBorderStyle.square,
-                responsive: false,
-                fieldHeight: 44.0,
-                fieldWidth: 44.0,
-                borderWidth: 1.0,
-                activeBorderColor: Colors.blue,
-                activeBackgroundColor: Colors.white,
-                borderRadius: BorderRadius.circular(10.0),
-                keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                autoHideKeyboard: false,
-                fieldBackgroundColor: Colors.white,
-                borderColor: Colors.black12,
-                textStyle: const TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-               const SizedBox(height: 20),
+                  // controller: otpController,
+                  length: 6,
+                  fieldBorderStyle: FieldBorderStyle.square,
+                  fieldHeight: 60,
+                  borderWidth: 1.0,
+                  activeBorderColor: Colors.red,
+                  borderRadius: BorderRadius.circular(12),
+                  textStyle: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18),
+                  keyboardType: TextInputType.number,
+                  onComplete: (value) {
+                    // BlocProvider.of<OtpBloc>(context).add(
+                    //     VerifySentOtp(
+                    //         otpCode: otpController.text,
+                    //         verificationId: id));
+                  }),
+              const SizedBox(height: 20),
               const Center(
-                child: ModifiedText(
-                    text:
-                        '59 sec',
-                    size: 11,
-                    color: Colors.red),
+                child:
+                    ModifiedText(text: '59 sec', size: 11, color: Colors.red),
               ),
               const SizedBox(height: 20),
-               const Center(
+              const Center(
                 child: ModifiedText(
-                    text:
-                        'Dont get OTP? Resend',
-                    size: 11,
-                    color: Colors.red),
+                    text: 'Dont get OTP? Resend', size: 11, color: Colors.red),
               ),
-               const SizedBox(height: 20),
+              const SizedBox(height: 20),
               InkWell(
                 onTap: () {
                   Navigator.of(context).pop();

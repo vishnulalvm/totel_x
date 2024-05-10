@@ -1,9 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:totel_x/presentation/screens/auth_screens/login_screen.dart';
-import 'package:totel_x/presentation/screens/auth_screens/verification_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:totel_x/firebase_options.dart';
+import 'package:totel_x/infrastructure/provider/user_data.dart';
 import 'package:totel_x/presentation/screens/home/home_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -12,26 +18,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromRGBO(16, 14, 9, 1),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromRGBO(16, 14, 9, 1),
+          ),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color.fromRGBO(16, 14, 9, 1),
+            foregroundColor: Colors.white,
+          ),
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            backgroundColor: Color.fromRGBO(16, 14, 9, 1),
+            foregroundColor: Colors.white,
+          ),
+          useMaterial3: true,
         ),
-        appBarTheme: const AppBarTheme(
-          backgroundColor:
-              Color.fromRGBO(16, 14, 9, 1), // Set the AppBar background color
-          foregroundColor: Colors.white, // Set the AppBar text and icon color
-        ),
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: Color.fromRGBO(
-              16, 14, 9, 1), // Set the FloatingActionButton background color
-          foregroundColor:
-              Colors.white, // Set the FloatingActionButton icon color
-        ),
-        useMaterial3: true,
+        home: const HomeScreen(),
       ),
-      home: const VerificationScreen(),
     );
   }
 }
