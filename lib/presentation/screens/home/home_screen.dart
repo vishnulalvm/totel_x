@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -50,6 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         border: Border.all(),
                         borderRadius: BorderRadius.circular(22)),
                     child: TextField(
+                      onTapOutside: (event) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
                       cursorWidth: 0,
                       cursorHeight: 0,
                       onTap: () async {},
@@ -66,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(width: 10),
                 InkWell(
-                  onTap: (){
+                  onTap: () {
                     showBottomSheet(context);
                   },
                   child: Container(
@@ -86,13 +89,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.all(12),
+            padding: EdgeInsets.only(left: 10, top: 15, bottom: 15),
             child: Text(
-              'User List',
+              'User Lists',
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
           ),
-          const SizedBox(height: 10),
+          // const SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
               controller: scrollController,
@@ -101,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding:
-                      const EdgeInsets.only(left: 12, right: 12, bottom: 8),
+                      const EdgeInsets.only(left: 10, right: 10, bottom: 8),
                   child: IntrinsicHeight(
                     child: OpenContainer(
                       openColor: Colors.white,
@@ -111,31 +114,28 @@ class _HomeScreenState extends State<HomeScreen> {
                       openBuilder: (BuildContext context, VoidCallback _) {
                         return const SizedBox();
                       },
-                      closedElevation: 0,
+                      closedElevation: 1,
                       closedShape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
                       closedColor: Colors.white,
                       closedBuilder:
                           (BuildContext context, VoidCallback openContainer) {
-                        return Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: ListTile(
-                            onTap: () {
-                              openContainer();
-                            },
-                            leading: const CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.blue,
-                            ),
-                            subtitle: const ModifiedText(
-                                text: 'Age: 34', size: 12, color: Colors.black),
-                            title: ModifiedText(
-                              text: 'Martin Dokid',
-                              size: 13,
-                              color: AppColor.fontColor,
-                              fontWeight: FontWeight.w700,
-                            ),
+                        return ListTile(
+                          onTap: () {
+                            openContainer();
+                          },
+                          leading: const CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Colors.blue,
+                          ),
+                          subtitle: const ModifiedText(
+                              text: 'Age: 34', size: 12, color: Colors.black),
+                          title: ModifiedText(
+                            text: 'Martin Dokid',
+                            size: 13,
+                            color: AppColor.fontColor,
+                            fontWeight: FontWeight.w700,
                           ),
                         );
                       },
@@ -173,30 +173,47 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          title: const Text('Add A New User'),
+          title:const ModifiedText(text: 'Add A New User', size: 13, color: Colors.black),
           content: Container(
             decoration: const BoxDecoration(color: Colors.white),
             width: MediaQuery.of(context).size.width,
             height: 322,
             child: Column(
-             crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Center(
-                      child: CircleAvatar(
-                        radius: 42.5,
+                Center(
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: [
+                      const CircleAvatar(
+                        radius: 40,
                         backgroundColor: Colors.blue,
                       ),
-                    ),
-                    Icon(Icons.photo_camera)
-                  ],
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                          width: 74,
+                          height: 30,
+                          decoration: const BoxDecoration(
+                            color: Color.fromRGBO(1, 40, 95, .75),
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(40),
+                              bottomRight: Radius.circular(40),
+                            ),
+                          ),
+                          child:
+                              const Icon(Icons.camera_alt, color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 12,
                 ),
-                const Text('Name'),
+                const Text('Name',style: TextStyle(
+                  color: Color.fromRGBO(51, 51, 51, 1)
+                ),),
                 const SizedBox(
                   height: 12,
                 ),
@@ -207,13 +224,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: InputDecoration(
                     hintText: 'Add A New User ',
                     hintStyle:
-                        const TextStyle(color: Colors.black54, fontSize: 14),
+                        const TextStyle(color: Colors.black54, fontSize: 13,),
                     filled: true,
                     fillColor: Colors.white, // Background color
                     border: OutlineInputBorder(
                       borderRadius:
-                          BorderRadius.circular(5.0), // Rounded border
-                      // borderSide: BorderSide.none, // No border side
+                          BorderRadius.circular(5.0), 
+                          borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, .4)),
+              
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius:
@@ -226,7 +244,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 12,
                 ),
-                const Text('Name'),
+                const Text('Age',style: TextStyle(
+                  color: Color.fromRGBO(51, 51, 51, 1)
+                ),),
                 const SizedBox(
                   height: 12,
                 ),
@@ -237,7 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: InputDecoration(
                     hintText: 'Add A New User ',
                     hintStyle:
-                        const TextStyle(color: Colors.black54, fontSize: 14),
+                        const TextStyle(color: Colors.black54, fontSize: 13),
                     filled: true,
                     fillColor: Colors.white, // Background color
                     border: OutlineInputBorder(
@@ -273,7 +293,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-
             InkWell(
               onTap: () {
                 Navigator.of(context).pop();
@@ -290,22 +309,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-
-            // ElevatedButton(
-            //   onPressed: () {
-            //     Navigator.of(context).pop();
-            //   },
-            //   child: const Text('Cancel'),
-            // ),
-            // ElevatedButton(
-
-            //   onPressed: () async {
-            //     // String update = newupdateController.text;
-
-            //     Navigator.of(context).pop();
-            //   },
-            //   child: const Text('Save',),
-            // ),
           ],
         );
       },
@@ -313,11 +316,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void showBottomSheet(BuildContext context) {
-  showModalBottomSheet<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return const BottomSheetWidget();
-    },
-  );
-}
+    showModalBottomSheet<void>(
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (BuildContext context) {
+        return const BottomSheetWidget();
+      },
+    );
+  }
 }
